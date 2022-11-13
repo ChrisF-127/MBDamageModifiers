@@ -17,34 +17,56 @@ namespace DamageModifiers
 		public override string FolderName => "DamageModifiers";
 		public override string FormatType => "json";
 
-
-
-		#region SMITHING PART RESEARCH MODIFIERS
 		[SettingPropertyFloatingInteger(
-			"Part Research Modifier",
-			0.01f,
-			10.0f,
+			"Player",
+			0f,
+			1f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",
+			HintText = "Damage modifier for the player controlled character in any non-arena/tournament fight, relative to difficulty setting. [Native: 100%]",
 			Order = 0)]
 		[SettingPropertyGroup(
-			"Smithing Research",
-			GroupOrder = 1)]
-		public float SmithingResearchModifier { get; set; } = 1f;
+			"Battles etc.",
+			GroupOrder = 0)]
+		public float BattlePlayerModifier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Free Build Part Research Modifier",
-			0.01f,
-			1.0f,
+			"Hero",
+			0f,
+			1f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Native: 10%]",
+			HintText = "Damage modifier for heroes in any non-arena/tournament fight, relative to difficulty setting. [Native: 100%]",
 			Order = 1)]
 		[SettingPropertyGroup(
-			"Smithing Research",
+			"Battles etc.",
+			GroupOrder = 0)]
+		public float BattleHeroModifier { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Player",
+			0f,
+			1f,
+			"0%",
+			RequireRestart = false,
+			HintText = "Damage modifier for the player controlled character in arena and tournament fights, relative to difficulty setting. [Native: 100%]",
+			Order = 0)]
+		[SettingPropertyGroup(
+			"Arena & Tournament",
 			GroupOrder = 1)]
-		public float SmithingFreeBuildResearchModifier { get; set; } = 0.1f;
-		#endregion
+		public float ArenaPlayerModifier { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Hero",
+			0f,
+			1f,
+			"0%",
+			RequireRestart = false,
+			HintText = "Damage modifier for heroes in arena and tournament fights, relative to difficulty setting. [Native: 100%]",
+			Order = 1)]
+		[SettingPropertyGroup(
+			"Arena & Tournament",
+			GroupOrder = 1)]
+		public float ArenaHeroModifier { get; set; } = 1f;
 	}
 }

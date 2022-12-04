@@ -20,24 +20,39 @@ namespace DamageModifiers
 
 		protected override void OnBeforeInitialModuleScreenSetAsRoot()
 		{
-			base.OnBeforeInitialModuleScreenSetAsRoot();
-			if (_isInitialized)
-				return;
+			try
+			{
+				base.OnBeforeInitialModuleScreenSetAsRoot();
+				if (_isInitialized)
+					return;
+				_isInitialized = true;
 
-			Settings = GlobalSettings<MCMSettings>.Instance;
-			if (Settings == null)
-				throw new Exception("Settings is null");
-
-			InformationManager.DisplayMessage(new InformationMessage("Damage Modifiers initialized"));
-
-			_isInitialized = true;
+				Settings = GlobalSettings<MCMSettings>.Instance;
+				if (Settings == null)
+					throw new Exception("Settings is null");
+			}
+			catch (Exception exc)
+			{
+				var text = $"ERROR: Damage Modifiers failed to initialize ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}):";
+				InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
+				FileLog.Log(text + "\n" + exc.ToString());
+			}
 		}
 
 		protected override void OnSubModuleLoad()
 		{
-			base.OnSubModuleLoad();
-			var harmony = new Harmony("sy.damagemodifiers");
-			harmony.PatchAll(Assembly.GetExecutingAssembly());
+			try
+			{
+				base.OnSubModuleLoad();
+				var harmony = new Harmony("sy.damagemodifiers");
+				harmony.PatchAll(Assembly.GetExecutingAssembly());
+			}
+			catch (Exception exc)
+			{
+				var text = $"ERROR: Damage Modifiers failed to initialize ({nameof(OnSubModuleLoad)}):";
+				InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
+				FileLog.Log(text + "\n" + exc.ToString());
+			}
 		}
 	}
 }

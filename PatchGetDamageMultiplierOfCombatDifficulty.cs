@@ -11,7 +11,6 @@ using TaleWorlds.CampaignSystem.Issues;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using static TaleWorlds.MountAndBlade.Mission;
 
 namespace DamageModifiers
 {

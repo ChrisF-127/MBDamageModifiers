@@ -15,37 +15,41 @@ using TaleWorlds.MountAndBlade;
 namespace DamageModifiers
 {
 	[HarmonyPatch(typeof(Mission), "GetDamageMultiplierOfCombatDifficulty")]
-	internal static class PatchGetDamageMultiplierOfCombatDifficulty
+	internal static class Patch_Mission_GetDamageMultiplierOfCombatDifficulty
 	{
 		[HarmonyPostfix]
 		public static void Postfix(Mission __instance, ref float __result, Agent victimAgent, Agent attackerAgent)
 		{
 			try
 			{
-				// check for horse
+				// try to get rider if victim is a mount
 				victimAgent = victimAgent?.IsMount == true ? victimAgent.RiderAgent : victimAgent;
+
+				// no modifiers if victim is null (for example riderless horse)
 				if (victimAgent == null)
 					return;
 
-				// check for arena/tournament fights
-				var isArena = IsArenaFight(__instance.MissionBehaviors);
-
-				// use adjusted damage
+				// check if victim is player controlled
 				if (!victimAgent.IsAIControlled)
-					__result *= isArena ? DamageModifiers.Settings.ArenaPlayerModifier : DamageModifiers.Settings.BattlePlayerModifier;
-				else if (victimAgent.IsHero)
-					__result *= isArena ? DamageModifiers.Settings.ArenaHeroModifier : DamageModifiers.Settings.BattleHeroModifier;
-
-				//FileLog.Log(
-				//	$"IsArena {isArena}\t" +
-				//	$"Hero {victimAgent.Character?.IsHero}\t" +
-				//	$"AIControlled {victimAgent.IsAIControlled}\t" +
-				//	$"Mount {victimAgent.IsMount}\t" +
-				//	$"Result {__result}");
+				{
+					// apply arena or battle modifier for player
+					__result *= IsArenaFight(__instance.MissionBehaviors) ? 
+						DamageModifiers.Settings.ArenaPlayerModifier : 
+						DamageModifiers.Settings.BattlePlayerModifier;
+				}
+				// check if victim is hero
+				else if (victimAgent.Character?.IsHero == true)
+				{
+					// apply arena or battle modifier for hero
+					__result *= IsArenaFight(__instance.MissionBehaviors) ? 
+						DamageModifiers.Settings.ArenaHeroModifier : 
+						DamageModifiers.Settings.BattleHeroModifier;
+				}
 			}
-			catch (Exception e)
+			catch (Exception exc)
 			{
-				FileLog.Log(e.ToString());
+				// catch anything going wrong, just in case - we all know how much Bannerlord loves to crash otherwise!
+				FileLog.Log($"{nameof(DamageModifiers)}.{nameof(Patch_Mission_GetDamageMultiplierOfCombatDifficulty)}: [{exc.GetType()}] {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 

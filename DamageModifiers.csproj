@@ -61,7 +61,7 @@
   <ItemGroup>
     <Compile Include="DamageModifiers.cs" />
     <Compile Include="MCMSettings.cs" />
-    <Compile Include="PatchGetDamageMultiplierOfCombatDifficulty.cs" />
+    <Compile Include="Patch_Mission_GetDamageMultiplierOfCombatDifficulty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

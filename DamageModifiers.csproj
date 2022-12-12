@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DamageModifierHelper.cs" />
     <Compile Include="DamageModifiers.cs" />
     <Compile Include="MCMSettings.cs" />
     <Compile Include="Patch_Mission_GetDamageMultiplierOfCombatDifficulty.cs" />

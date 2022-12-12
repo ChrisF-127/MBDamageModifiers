@@ -18,141 +18,255 @@ namespace DamageModifiers
 		public override string FormatType => "json";
 
 		#region GENERAL
-		const string GroupNameGeneral = "General Settings";
-
-		[SettingPropertyBool(
-			"Apply Damage Dealt against Player",
-			RequireRestart = false,
-			HintText = "Also apply damage dealt modifiers against player. [Native: false]",
-			Order = 0)]
-		[SettingPropertyGroup(
-			GroupNameGeneral,
-			GroupOrder = 0)]
-		public bool ApplyAttackerModifierAgainstPlayer { get; set; } = false;
-
-		[SettingPropertyBool(
-			"Apply Damage Dealt against Heroes",
-			RequireRestart = false,
-			HintText = "Also apply damage dealt modifiers against heroes. [Native: false]",
-			Order = 1)]
-		[SettingPropertyGroup(
-			GroupNameGeneral,
-			GroupOrder = 0)]
-		public bool ApplyAttackerModifierAgainstHeroes { get; set; } = false;
+		//const string GroupNameGeneral = "General Settings";
 		#endregion
 
 		#region BATTLE MODIFIERS
 		const string GroupNameBattle = "Battles etc.";
+		const string HintTextBattle = "Attacker -> Victim; Any non-arena/tournament fight; further modified by difficulty setting. [Native: 100%]";
 
 		[SettingPropertyFloatingInteger(
-			"Player Damage Received",
+			"Player -> Player",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage received modifier for the player controlled character in any non-arena/tournament fight (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextBattle,
 			Order = 0)]
 		[SettingPropertyGroup(
 			GroupNameBattle,
 			GroupOrder = 1)]
-		public float BattlePlayerModifier { get; set; } = 1f;
+		public float BattlePlayerPlayer { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Hero Damage Received",
+			"Hero -> Player",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage received modifier for heroes in any non-arena/tournament fight (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextBattle,
 			Order = 1)]
 		[SettingPropertyGroup(
 			GroupNameBattle,
 			GroupOrder = 1)]
-		public float BattleHeroModifier { get; set; } = 1f;
-
+		public float BattleHeroPlayer { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Player Damage Dealt",
+			"Other -> Player",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage dealt modifier for the player controlled character in any non-arena/tournament fight (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextBattle,
 			Order = 2)]
 		[SettingPropertyGroup(
 			GroupNameBattle,
 			GroupOrder = 1)]
-		public float BattlePlayerAttackerModifier { get; set; } = 1f;
+		public float BattleOtherPlayer { get; set; } = 1f;
+
 
 		[SettingPropertyFloatingInteger(
-			"Hero Damage Dealt",
+			"Player -> Hero",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage dealt modifier for heroes in any non-arena/tournament fight (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextBattle,
 			Order = 3)]
 		[SettingPropertyGroup(
 			GroupNameBattle,
 			GroupOrder = 1)]
-		public float BattleHeroAttackerModifier { get; set; } = 1f;
+		public float BattlePlayerHero { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Hero -> Hero",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextBattle,
+			Order = 4)]
+		[SettingPropertyGroup(
+			GroupNameBattle,
+			GroupOrder = 1)]
+		public float BattleHeroHero { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Other -> Hero",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextBattle,
+			Order = 5)]
+		[SettingPropertyGroup(
+			GroupNameBattle,
+			GroupOrder = 1)]
+		public float BattleOtherHero { get; set; } = 1f;
+
+
+		[SettingPropertyFloatingInteger(
+			"Player -> Other",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextBattle,
+			Order = 6)]
+		[SettingPropertyGroup(
+			GroupNameBattle,
+			GroupOrder = 1)]
+		public float BattlePlayerOther { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Hero -> Other",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextBattle,
+			Order = 7)]
+		[SettingPropertyGroup(
+			GroupNameBattle,
+			GroupOrder = 1)]
+		public float BattleHeroOther { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Other -> Other",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextBattle,
+			Order = 8)]
+		[SettingPropertyGroup(
+			GroupNameBattle,
+			GroupOrder = 1)]
+		public float BattleOtherOther { get; set; } = 1f;
 		#endregion
 
 		#region ARENA MODIFIERS
 		const string GroupNameArena = "Arena & Tournament";
+		const string HintTextArena = "Attacker -> Victim; Arena and tournament fights; further modified by difficulty setting. [Native: 100%]";
 
 		[SettingPropertyFloatingInteger(
-			"Player Damage Received",
+			"Player -> Player",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage received modifier for the player controlled character in arena and tournament fights (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextArena,
 			Order = 0)]
 		[SettingPropertyGroup(
 			GroupNameArena,
 			GroupOrder = 2)]
-		public float ArenaPlayerModifier { get; set; } = 1f;
+		public float ArenaPlayerPlayer { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Hero Damage Received",
+			"Hero -> Player",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage received modifier for heroes in arena and tournament fights (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextArena,
 			Order = 1)]
 		[SettingPropertyGroup(
 			GroupNameArena,
 			GroupOrder = 2)]
-		public float ArenaHeroModifier { get; set; } = 1f;
-
+		public float ArenaHeroPlayer { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Player Damage Dealt",
+			"Other -> Player",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage dealt modifier for the player controlled character in arena and tournament fights (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextArena,
 			Order = 2)]
 		[SettingPropertyGroup(
 			GroupNameArena,
 			GroupOrder = 2)]
-		public float ArenaPlayerAttackerModifier { get; set; } = 1f;
+		public float ArenaOtherPlayer { get; set; } = 1f;
+
 
 		[SettingPropertyFloatingInteger(
-			"Hero Damage Dealt",
+			"Player -> Hero",
 			0f,
 			10f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Damage dealt modifier for heroes in arena and tournament fights (further modified by difficulty setting). [Native: 100%]",
+			HintText = HintTextArena,
 			Order = 3)]
 		[SettingPropertyGroup(
 			GroupNameArena,
 			GroupOrder = 2)]
-		public float ArenaHeroAttackerModifier { get; set; } = 1f;
+		public float ArenaPlayerHero { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Hero -> Hero",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextArena,
+			Order = 4)]
+		[SettingPropertyGroup(
+			GroupNameArena,
+			GroupOrder = 2)]
+		public float ArenaHeroHero { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Other -> Hero",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextArena,
+			Order = 5)]
+		[SettingPropertyGroup(
+			GroupNameArena,
+			GroupOrder = 2)]
+		public float ArenaOtherHero { get; set; } = 1f;
+
+
+		[SettingPropertyFloatingInteger(
+			"Player -> Other",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextArena,
+			Order = 6)]
+		[SettingPropertyGroup(
+			GroupNameArena,
+			GroupOrder = 2)]
+		public float ArenaPlayerOther { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Hero -> Other",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextArena,
+			Order = 7)]
+		[SettingPropertyGroup(
+			GroupNameArena,
+			GroupOrder = 2)]
+		public float ArenaHeroOther { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Other -> Other",
+			0f,
+			10f,
+			"0%",
+			RequireRestart = false,
+			HintText = HintTextArena,
+			Order = 8)]
+		[SettingPropertyGroup(
+			GroupNameArena,
+			GroupOrder = 2)]
+		public float ArenaOtherOther { get; set; } = 1f;
 		#endregion
 	}
 }

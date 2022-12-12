@@ -22,77 +22,20 @@ namespace DamageModifiers
 		{
 			try
 			{
-				var isArenaFight = IsArenaFight(__instance.MissionBehaviors);
+				// check if arena fight
+				var isArenaFight = __instance.MissionBehaviors.IsArenaFight();
 
-				// -- damage received modifiers
-				// try to get rider if victim is a mount
-				victimAgent = victimAgent?.IsMount == true ? victimAgent.RiderAgent : victimAgent;
+				// get riders and agent types
+				var attackerType = attackerAgent.GetAgentType();
+				var victimType = victimAgent.GetAgentType();
 
-				// check if victim is player controlled
-				if (victimAgent?.IsAIControlled == false)
-				{
-					// apply arena or battle modifier for player
-					__result *= isArenaFight ?
-						DamageModifiers.Settings.ArenaPlayerModifier :
-						DamageModifiers.Settings.BattlePlayerModifier;
-
-					// skip attacker damage modifiers if not applied to player
-					if (!DamageModifiers.Settings.ApplyAttackerModifierAgainstPlayer)
-						return;
-				}
-				// check if victim is hero
-				else if (victimAgent?.Character?.IsHero == true)
-				{
-					// apply arena or battle modifier for hero
-					__result *= isArenaFight ?
-						DamageModifiers.Settings.ArenaHeroModifier :
-						DamageModifiers.Settings.BattleHeroModifier;
-
-					// skip attacker damage modifiers if not applied to heroes
-					if (!DamageModifiers.Settings.ApplyAttackerModifierAgainstHeroes)
-						return;
-				}
-
-				// -- damage dealt modifiers
-				// try to get rider if attacker is a mount
-				attackerAgent = attackerAgent?.IsMount == true ? attackerAgent.RiderAgent : attackerAgent;
-
-				// check if attacker is player controlled
-				if (attackerAgent?.IsAIControlled == false)
-				{
-					// apply arena or battle modifier
-					__result *= isArenaFight ?
-						DamageModifiers.Settings.ArenaPlayerAttackerModifier :
-						DamageModifiers.Settings.BattlePlayerAttackerModifier;
-				}
-				// check if attacker is hero
-				else if (attackerAgent?.Character?.IsHero == true)
-				{
-					// apply arena or battle modifier
-					__result *= isArenaFight ?
-						DamageModifiers.Settings.ArenaHeroAttackerModifier :
-						DamageModifiers.Settings.BattleHeroAttackerModifier;
-				}
+				__result = DamageModifierHelper.GetDamageMultiplier(attackerType, victimType, isArenaFight);
 			}
 			catch (Exception exc)
 			{
 				// catch anything going wrong, just in case - we all know how much Bannerlord loves to crash otherwise!
 				FileLog.Log($"{nameof(DamageModifiers)}.{nameof(Patch_Mission_GetDamageMultiplierOfCombatDifficulty)}: [{exc.GetType()}] {exc.Message}\n{exc.StackTrace}");
 			}
-		}
-
-		private static bool IsArenaFight(List<MissionBehavior> missionBehaviors)
-		{
-			if (missionBehaviors != null)
-			{
-				for (int i = 0; i < missionBehaviors.Count; i++)
-				{
-					// Arena fights and Tournaments
-					if (missionBehaviors[i] is ArenaAgentStateDeciderLogic)
-						return true;
-				}
-			}
-			return false;
 		}
 	}
 }

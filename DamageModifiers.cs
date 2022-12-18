@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
+using TaleWorlds.Engine;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
@@ -44,8 +45,7 @@ namespace DamageModifiers
 			try
 			{
 				base.OnSubModuleLoad();
-				var harmony = new Harmony("sy.damagemodifiers");
-				harmony.PatchAll(Assembly.GetExecutingAssembly());
+				HarmonyPatches.ApplyPatches();
 			}
 			catch (Exception exc)
 			{

@@ -62,7 +62,7 @@
     <Compile Include="DamageModifierHelper.cs" />
     <Compile Include="DamageModifiers.cs" />
     <Compile Include="MCMSettings.cs" />
-    <Compile Include="Patch_Mission_GetDamageMultiplierOfCombatDifficulty.cs" />
+    <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

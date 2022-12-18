@@ -30,17 +30,8 @@ namespace DamageModifiers
 		{
 			try
 			{
-				//var bef = attackCollisionData.InflictedDamage;
-
 				// apply modifier
 				attackCollisionData.InflictedDamage = MathF.Round(attackCollisionData.InflictedDamage * GetDamageMultiplier(attackerAgent, victimAgent, hitObject != null, ref attackInformation, ref attackCollisionData));
-
-				//var aft = attackCollisionData.InflictedDamage;
-				//FileLog.Log(
-				//	$"Attacker: {attackerAgent?.Name}\n" +
-				//	$"Defender: {victimAgent?.Name}\n" +
-				//	$"HitObj.:  {hitObject?.Name}\n" +
-				//	$"Damage:   {bef} -> {aft}");
 			}
 			catch (Exception exc)
 			{

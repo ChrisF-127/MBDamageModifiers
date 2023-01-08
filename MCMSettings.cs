@@ -26,7 +26,7 @@ namespace DamageModifiers
 			10f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Melee damage modifier, multiplicative with other modifiers. [Native: 100%]",
+			HintText = "Melee damage modifier, multiplicative with other modifiers. [Native: 1.00]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			GroupNameGeneral,
@@ -39,7 +39,7 @@ namespace DamageModifiers
 			10f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Ranged damage modifier, multiplicative with other modifiers. [Native: 100%]",
+			HintText = "Ranged damage modifier, multiplicative with other modifiers. [Native: 1.00]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			GroupNameGeneral,
@@ -52,7 +52,7 @@ namespace DamageModifiers
 			10f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Horse charge damage modifier, multiplicative with other modifiers. [Native: 100%]",
+			HintText = "Horse charge damage modifier, multiplicative with other modifiers. [Native: 1.00]",
 			Order = 2)]
 		[SettingPropertyGroup(
 			GroupNameGeneral,
@@ -66,7 +66,7 @@ namespace DamageModifiers
 			10f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Damage modifier against shields, multiplicative with other modifiers. [Native: 100%]",
+			HintText = "Damage modifier against shields, multiplicative with other modifiers. [Native: 1.00]",
 			Order = 3)]
 		[SettingPropertyGroup(
 			GroupNameGeneral,
@@ -79,7 +79,7 @@ namespace DamageModifiers
 			10f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Damage modifier against objects, multiplicative with other modifiers. [Native: 100%]",
+			HintText = "Damage modifier against objects, multiplicative with other modifiers. [Native: 1.00]",
 			Order = 4)]
 		[SettingPropertyGroup(
 			GroupNameGeneral,
@@ -93,7 +93,7 @@ namespace DamageModifiers
 			10f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Damage modifier for fall damage, equal for everyone. [Native: 100%]",
+			HintText = "Damage modifier for fall damage, equal for everyone. [Native: 1.00]",
 			Order = 5)]
 		[SettingPropertyGroup(
 			GroupNameGeneral,
@@ -103,7 +103,7 @@ namespace DamageModifiers
 
 		#region BATTLE MODIFIERS
 		const string GroupNameBattle = "Battles etc.";
-		const string HintTextBattle = "Attacker vs Victim in non-arena/tournament fights. Will be further modified by difficulty setting. [Native: 100%]";
+		const string HintTextBattle = "Attacker vs Victim in non-arena/tournament fights. Will be further modified by difficulty setting. [Native: 1.00]";
 
 		[SettingPropertyFloatingInteger(
 			"Player vs Player",
@@ -227,7 +227,7 @@ namespace DamageModifiers
 
 		#region ARENA MODIFIERS
 		const string GroupNameArena = "Arena & Tournament";
-		const string HintTextArena = "Attacker vs Victim, in Arena and tournament fights. Will be further modified by difficulty setting. [Native: 100%]";
+		const string HintTextArena = "Attacker vs Victim, in Arena and tournament fights. Will be further modified by difficulty setting. [Native: 1.00]";
 
 		[SettingPropertyFloatingInteger(
 			"Player vs Player",

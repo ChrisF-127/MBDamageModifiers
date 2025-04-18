@@ -16,6 +16,7 @@ namespace DamageModifiers
 		Player = 0,
 		Hero = 1,
 		Other = 2,
+		Mount = 3,
 	}
 
 	internal static class DamageModifierHelper
@@ -55,15 +56,26 @@ namespace DamageModifiers
 
 		internal static AgentType GetAgentType(this Agent agent)
 		{
-			agent = agent?.IsMount == true ? agent.RiderAgent : agent;
-
+			// is mount?
+			if (agent?.IsMount == true)
+			{
+				// get rider
+				agent = agent.RiderAgent;
+				// riderless mount
+				if (agent == null)
+					return AgentType.Mount;
+			}
+			// valid agent?
 			if (agent != null)
 			{
+				// is non-AI-controlled agent aka player?
 				if (!agent.IsAIControlled)
 					return AgentType.Player;
+				// is hero?
 				if (agent.Character?.IsHero == true)
 					return AgentType.Hero;
 			}
+			// anyone else
 			return AgentType.Other;
 		}
 
@@ -111,6 +123,12 @@ namespace DamageModifiers
 								DamageModifiers.Settings.ArenaPlayerOther :
 								DamageModifiers.Settings.BattlePlayerOther;
 							break;
+						// victim: mount
+						case AgentType.Mount:
+							output *= isArenaFight ?
+								DamageModifiers.Settings.ArenaAnyMount :
+								DamageModifiers.Settings.BattleAnyMount;
+							break;
 					}
 					break;
 				// attacker: hero
@@ -135,10 +153,18 @@ namespace DamageModifiers
 								DamageModifiers.Settings.ArenaHeroOther :
 								DamageModifiers.Settings.BattleHeroOther;
 							break;
+						// victim: mount
+						case AgentType.Mount:
+							output *= isArenaFight ?
+								DamageModifiers.Settings.ArenaAnyMount :
+								DamageModifiers.Settings.BattleAnyMount;
+							break;
 					}
 					break;
 				// attacker: other
 				case AgentType.Other:
+				// attacker: mount
+				case AgentType.Mount:
 					switch (victimType)
 					{
 						// victim: player
@@ -158,6 +184,12 @@ namespace DamageModifiers
 							output *= isArenaFight ?
 								DamageModifiers.Settings.ArenaOtherOther :
 								DamageModifiers.Settings.BattleOtherOther;
+							break;
+						// victim: mount
+						case AgentType.Mount:
+							output *= isArenaFight ?
+								DamageModifiers.Settings.ArenaAnyMount :
+								DamageModifiers.Settings.BattleAnyMount;
 							break;
 					}
 					break;

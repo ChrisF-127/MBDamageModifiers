@@ -223,6 +223,19 @@ namespace DamageModifiers
 			GroupNameBattle,
 			GroupOrder = 1)]
 		public float BattleOtherOther { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Anyone vs riderless Mount",
+			0f,
+			10f,
+			"0.00",
+			RequireRestart = false,
+			HintText = HintTextBattle,
+			Order = 9)]
+		[SettingPropertyGroup(
+			GroupNameBattle,
+			GroupOrder = 1)]
+		public float BattleAnyMount { get; set; } = 1f;
 		#endregion
 
 		#region ARENA MODIFIERS
@@ -347,6 +360,19 @@ namespace DamageModifiers
 			GroupNameArena,
 			GroupOrder = 2)]
 		public float ArenaOtherOther { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Anyone vs riderless Mount",
+			0f,
+			10f,
+			"0.00",
+			RequireRestart = false,
+			HintText = HintTextArena,
+			Order = 9)]
+		[SettingPropertyGroup(
+			GroupNameArena,
+			GroupOrder = 2)]
+		public float ArenaAnyMount { get; set; } = 1f;
 		#endregion
 	}
 }
